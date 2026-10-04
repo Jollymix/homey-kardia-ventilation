@@ -19,7 +19,7 @@ Sensors your unit does not have will simply stay empty.
 
 ## Installation
 
-The app is not (yet) in the Homey App Store. Install it with the Homey CLI (Node.js 18+):
+Install from the Homey App Store once published, or with the Homey CLI (Node.js 18+):
 
 ```bash
 git clone https://github.com/Jollymix/homey-kardia-ventilation.git

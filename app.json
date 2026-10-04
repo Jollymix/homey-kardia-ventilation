@@ -23,7 +23,8 @@
   },
   "images": {
     "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png"
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
   },
   "capabilities": {
     "ventilation_mode": {
@@ -77,7 +78,8 @@
       ],
       "images": {
         "small": "/drivers/ventilation/assets/images/small.png",
-        "large": "/drivers/ventilation/assets/images/large.png"
+        "large": "/drivers/ventilation/assets/images/large.png",
+        "xlarge": "/drivers/ventilation/assets/images/xlarge.png"
       },
       "capabilities": [
         "ventilation_mode",
@@ -372,5 +374,20 @@
   "source": "https://github.com/Jollymix/homey-kardia-ventilation",
   "bugs": {
     "url": "https://github.com/Jollymix/homey-kardia-ventilation/issues"
+  },
+  "tags": {
+    "en": [
+      "ventilation",
+      "kardia",
+      "air",
+      "co2",
+      "rs485"
+    ],
+    "no": [
+      "ventilasjon",
+      "kardia",
+      "luft",
+      "co2"
+    ]
   }
 }
