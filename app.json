@@ -1,0 +1,376 @@
+{
+  "id": "no.jolly.kardiaventilation",
+  "version": "0.1.0",
+  "compatibility": ">=12.2.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Kardia Ventilation",
+    "no": "Kardia-ventilasjon"
+  },
+  "description": {
+    "en": "Local control of a ventilation unit via the serial-over-TCP adapter previously used by Kardia Hub",
+    "no": "Lokal styring av ventilasjonsaggregat via seriell-over-TCP-adapteren som Kardia Hub brukte"
+  },
+  "category": [
+    "climate"
+  ],
+  "permissions": [],
+  "author": {
+    "name": "Jollymix"
+  },
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png"
+  },
+  "capabilities": {
+    "ventilation_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Ventilation mode",
+        "no": "Ventilasjonsmodus"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "insights": false,
+      "values": [
+        {
+          "id": "away",
+          "title": {
+            "en": "Away",
+            "no": "Borte"
+          }
+        },
+        {
+          "id": "home",
+          "title": {
+            "en": "Home",
+            "no": "Hjemme"
+          }
+        },
+        {
+          "id": "boost",
+          "title": {
+            "en": "Boost",
+            "no": "Boost"
+          }
+        }
+      ]
+    }
+  },
+  "drivers": [
+    {
+      "id": "ventilation",
+      "name": {
+        "en": "Ventilation unit",
+        "no": "Ventilasjonsaggregat"
+      },
+      "class": "fan",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/ventilation/assets/images/small.png",
+        "large": "/drivers/ventilation/assets/images/large.png"
+      },
+      "capabilities": [
+        "ventilation_mode",
+        "target_temperature",
+        "measure_temperature",
+        "measure_temperature.outdoor",
+        "measure_temperature.supply",
+        "measure_temperature.exhaust",
+        "measure_humidity",
+        "measure_humidity.outdoor",
+        "measure_co2",
+        "measure_pm25",
+        "measure_pm25.outdoor",
+        "measure_pm10",
+        "measure_pm10.outdoor"
+      ],
+      "capabilitiesOptions": {
+        "target_temperature": {
+          "title": {
+            "en": "Temperature setpoint",
+            "no": "Temperatur-settpunkt"
+          },
+          "min": 10,
+          "max": 30,
+          "step": 1
+        },
+        "measure_temperature": {
+          "title": {
+            "en": "Indoor temperature",
+            "no": "Temperatur inne"
+          }
+        },
+        "measure_temperature.outdoor": {
+          "title": {
+            "en": "Outdoor temperature",
+            "no": "Temperatur ute"
+          }
+        },
+        "measure_temperature.supply": {
+          "title": {
+            "en": "Supply air",
+            "no": "Tilluft"
+          }
+        },
+        "measure_temperature.exhaust": {
+          "title": {
+            "en": "Exhaust air",
+            "no": "Avtrekk"
+          }
+        },
+        "measure_humidity": {
+          "title": {
+            "en": "Indoor humidity",
+            "no": "Fukt inne"
+          }
+        },
+        "measure_humidity.outdoor": {
+          "title": {
+            "en": "Outdoor humidity",
+            "no": "Fukt ute"
+          }
+        },
+        "measure_pm25": {
+          "title": {
+            "en": "PM2.5 indoor",
+            "no": "PM2.5 inne"
+          }
+        },
+        "measure_pm25.outdoor": {
+          "title": {
+            "en": "PM2.5 outdoor",
+            "no": "PM2.5 ute"
+          }
+        },
+        "measure_pm10": {
+          "title": {
+            "en": "PM10 indoor",
+            "no": "PM10 inne"
+          }
+        },
+        "measure_pm10.outdoor": {
+          "title": {
+            "en": "PM10 outdoor",
+            "no": "PM10 ute"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "connect"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "id": "host",
+          "type": "text",
+          "label": {
+            "en": "IP address",
+            "no": "IP-adresse"
+          },
+          "value": ""
+        },
+        {
+          "id": "port",
+          "type": "number",
+          "label": {
+            "en": "Port",
+            "no": "Port"
+          },
+          "value": 8234,
+          "min": 1,
+          "max": 65535
+        },
+        {
+          "id": "debug",
+          "type": "checkbox",
+          "label": {
+            "en": "Log raw frames",
+            "no": "Logg rå rammer (feilsøking)"
+          },
+          "value": false
+        }
+      ]
+    }
+  ],
+  "flow": {
+    "triggers": [
+      {
+        "id": "ventilation_mode_changed",
+        "title": {
+          "en": "Ventilation mode changed",
+          "no": "Ventilasjonsmodus endret"
+        },
+        "tokens": [
+          {
+            "name": "mode",
+            "type": "string",
+            "title": {
+              "en": "Mode",
+              "no": "Modus"
+            },
+            "example": "home"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ventilation"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "ventilation_mode_is",
+        "title": {
+          "en": "Ventilation mode !{{is|is not}}",
+          "no": "Ventilasjonsmodus !{{er|er ikke}}"
+        },
+        "titleFormatted": {
+          "en": "Ventilation mode !{{is|is not}} [[mode]]",
+          "no": "Ventilasjonsmodus !{{er|er ikke}} [[mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ventilation"
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "values": [
+              {
+                "id": "away",
+                "label": {
+                  "en": "Away",
+                  "no": "Borte"
+                }
+              },
+              {
+                "id": "home",
+                "label": {
+                  "en": "Home",
+                  "no": "Hjemme"
+                }
+              },
+              {
+                "id": "boost",
+                "label": {
+                  "en": "Boost",
+                  "no": "Boost"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "set_ventilation_mode",
+        "title": {
+          "en": "Set ventilation mode",
+          "no": "Sett ventilasjonsmodus"
+        },
+        "titleFormatted": {
+          "en": "Set ventilation mode to [[mode]]",
+          "no": "Sett ventilasjonsmodus til [[mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ventilation"
+          },
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "values": [
+              {
+                "id": "away",
+                "label": {
+                  "en": "Away",
+                  "no": "Borte"
+                }
+              },
+              {
+                "id": "home",
+                "label": {
+                  "en": "Home",
+                  "no": "Hjemme"
+                }
+              },
+              {
+                "id": "boost",
+                "label": {
+                  "en": "Boost",
+                  "no": "Boost"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "set_supply_setpoint",
+        "title": {
+          "en": "Set temperature setpoint",
+          "no": "Sett temperatur-settpunkt"
+        },
+        "titleFormatted": {
+          "en": "Set setpoint to [[temperature]] °C",
+          "no": "Sett settpunkt til [[temperature]] °C"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ventilation"
+          },
+          {
+            "type": "number",
+            "name": "temperature",
+            "min": 10,
+            "max": 30,
+            "step": 1,
+            "placeholder": {
+              "en": "20",
+              "no": "20"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "brandColor": "#2060A0",
+  "homepage": "https://github.com/Jollymix/homey-kardia-ventilation",
+  "support": "https://github.com/Jollymix/homey-kardia-ventilation/issues",
+  "source": "https://github.com/Jollymix/homey-kardia-ventilation",
+  "bugs": {
+    "url": "https://github.com/Jollymix/homey-kardia-ventilation/issues"
+  }
+}

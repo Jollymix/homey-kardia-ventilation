@@ -1,0 +1,52 @@
+<style>
+  .kv-form { padding: 8px 0; }
+  .kv-row { margin-bottom: 14px; }
+  .kv-row label { display: block; font-weight: 600; margin-bottom: 4px; }
+  .kv-row input { width: 100%; box-sizing: border-box; }
+  #kv-status { margin-top: 12px; min-height: 1.4em; }
+  .kv-err { color: #c0392b; }
+  .kv-ok { color: #27ae60; }
+</style>
+
+<header class="homey-header">
+  <h1 class="homey-title">Koble til ventilasjonsadapteren</h1>
+  <p class="homey-subtitle">
+    Skriv inn IP-adressen til seriell-til-Ethernet-adapteren. Homey kobler seg til og venter på data fra aggregatet.
+  </p>
+</header>
+
+<div class="kv-form homey-form">
+  <div class="kv-row homey-form-group">
+    <label class="homey-form-label" for="kv-host">IP-adresse</label>
+    <input class="homey-form-input" id="kv-host" type="text" placeholder="192.168.1.50" />
+  </div>
+  <div class="kv-row homey-form-group">
+    <label class="homey-form-label" for="kv-port">Port</label>
+    <input class="homey-form-input" id="kv-port" type="number" value="8234" />
+  </div>
+  <button class="homey-button-primary-full" id="kv-test">Test og fortsett</button>
+  <div id="kv-status"></div>
+</div>
+
+<script type="application/javascript">
+  const btn = document.getElementById('kv-test');
+  const status = document.getElementById('kv-status');
+
+  btn.addEventListener('click', async () => {
+    const host = document.getElementById('kv-host').value.trim();
+    const port = Number(document.getElementById('kv-port').value) || 8234;
+    status.className = '';
+    status.textContent = 'Kobler til og venter på data (opptil 15 s)…';
+    btn.disabled = true;
+    try {
+      const s = await Homey.emit('test_connection', { host, port });
+      status.className = 'kv-ok';
+      status.textContent = `Fant aggregatet – settpunkt ${s.targetTemperature} °C, modus ${s.preset ?? s.presetRaw}.`;
+      setTimeout(() => Homey.showView('list_devices'), 800);
+    } catch (err) {
+      status.className = 'kv-err';
+      status.textContent = err.message || String(err);
+      btn.disabled = false;
+    }
+  });
+</script>
