@@ -1,0 +1,16 @@
+{
+  "pair": {
+    "title": "Koble til ventilasjonsadapteren",
+    "subtitle": "Fant ingen adapter automatisk. Skriv inn IP-adressen til RS-485-nettverksadapteren som er koblet til ventilasjonsaggregatet.",
+    "ip": "IP-adresse",
+    "port": "Port",
+    "test": "Koble til",
+    "waiting": "Kobler til og venter på data (opptil 15 s)…",
+    "found": "Fant ventilasjonsaggregatet",
+    "no_host": "Skriv inn IP-adressen til adapteren.",
+    "no_data": "Fikk ingen data fra aggregatet. Sjekk IP-adresse og port, og at ikke et annet system er koblet til adapteren."
+  },
+  "device": {
+    "connection_lost": "Mistet forbindelsen til ventilasjonsadapteren"
+  }
+}

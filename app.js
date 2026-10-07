@@ -9,11 +9,6 @@ class KardiaVentilationApp extends Homey.App {
       await device.triggerCapabilityListener('ventilation_mode', mode);
     });
 
-    const setTemp = this.homey.flow.getActionCard('set_supply_setpoint');
-    setTemp.registerRunListener(async ({ device, temperature }) => {
-      await device.triggerCapabilityListener('target_temperature', temperature);
-    });
-
     const modeIs = this.homey.flow.getConditionCard('ventilation_mode_is');
     modeIs.registerRunListener(async ({ device, mode }) => device.getCapabilityValue('ventilation_mode') === mode);
 

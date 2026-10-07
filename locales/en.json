@@ -1,0 +1,16 @@
+{
+  "pair": {
+    "title": "Connect to the ventilation adapter",
+    "subtitle": "No adapter was found automatically. Enter the IP address of the RS-485 network adapter that is connected to your ventilation unit.",
+    "ip": "IP address",
+    "port": "Port",
+    "test": "Connect",
+    "waiting": "Connecting and waiting for data (up to 15 s)…",
+    "found": "Ventilation unit found",
+    "no_host": "Please enter the IP address of the adapter.",
+    "no_data": "No data received from the ventilation unit. Check the IP address and port, and make sure no other system is connected to the adapter."
+  },
+  "device": {
+    "connection_lost": "Lost connection to the ventilation adapter"
+  }
+}

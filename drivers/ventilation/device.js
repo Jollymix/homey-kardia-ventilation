@@ -51,7 +51,7 @@ class VentilationDevice extends Homey.Device {
       // Gi reconnect litt tid før enheten merkes som utilgjengelig
       clearTimeout(this._offlineTimer);
       this._offlineTimer = this.homey.setTimeout(() => {
-        this.setUnavailable('Mistet forbindelsen til ventilasjonsadapteren').catch(this.error);
+        this.setUnavailable(this.homey.__('device.connection_lost')).catch(this.error);
       }, 60000);
     });
 
@@ -95,6 +95,31 @@ class VentilationDevice extends Homey.Device {
     if (changedKeys.includes('host') || changedKeys.includes('port')) {
       this.homey.setTimeout(() => this._connect(), 500);
     }
+  }
+
+  // --- Oppdagelse: følg adapteren hvis den får ny IP fra DHCP ---
+
+  onDiscoveryResult(discoveryResult) {
+    return discoveryResult.id === this.getData().id;
+  }
+
+  async onDiscoveryAvailable(discoveryResult) {
+    await this._useAddress(discoveryResult.address);
+  }
+
+  onDiscoveryAddressChanged(discoveryResult) {
+    this._useAddress(discoveryResult.address).catch(this.error);
+  }
+
+  onDiscoveryLastSeenChanged() {
+    if (this.client && !this.client.connected) this._connect();
+  }
+
+  async _useAddress(address) {
+    if (!address || address === this.getSetting('host')) return;
+    this.log(`Adapteren har fått ny adresse: ${address}`);
+    await this.setSettings({ host: address });
+    this._connect();
   }
 
   async onUninit() {

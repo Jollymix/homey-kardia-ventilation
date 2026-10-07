@@ -1,6 +1,10 @@
 {
   "0.1.0": {
-    "en": "First release: mode, setpoint, temperature, humidity, CO2 and particulate sensors, flow cards.",
-    "no": "Første versjon: modus, settpunkt, temperatur, fukt, CO2 og partikkelsensorer, flowkort."
+    "en": "First release.",
+    "no": "Første versjon."
+  },
+  "0.2.0": {
+    "en": "Automatic discovery of the network adapter. Simpler pairing.",
+    "no": "Finner nettverksadapteren automatisk. Enklere oppsett."
   }
 }

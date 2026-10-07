@@ -1,6 +1,6 @@
 {
   "id": "no.jolly.kardiaventilation",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -11,8 +11,8 @@
     "no": "Kardia-ventilasjon"
   },
   "description": {
-    "en": "Local control of a ventilation unit via the serial-over-TCP adapter previously used by Kardia Hub",
-    "no": "Lokal styring av ventilasjonsaggregat via seriell-over-TCP-adapteren som Kardia Hub brukte"
+    "en": "Fresh air, back under your control.",
+    "no": "Frisk luft – tilbake under din kontroll."
   },
   "category": [
     "climate"
@@ -169,14 +169,14 @@
       },
       "pair": [
         {
-          "id": "connect"
-        },
-        {
           "id": "list_devices",
           "template": "list_devices",
           "navigation": {
             "next": "add_devices"
           }
+        },
+        {
+          "id": "connect"
         },
         {
           "id": "add_devices",
@@ -213,7 +213,8 @@
           },
           "value": false
         }
-      ]
+      ],
+      "discovery": "usr-iot-adapter"
     }
   ],
   "flow": {
@@ -336,35 +337,6 @@
             ]
           }
         ]
-      },
-      {
-        "id": "set_supply_setpoint",
-        "title": {
-          "en": "Set temperature setpoint",
-          "no": "Sett temperatur-settpunkt"
-        },
-        "titleFormatted": {
-          "en": "Set setpoint to [[temperature]] °C",
-          "no": "Sett settpunkt til [[temperature]] °C"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=ventilation"
-          },
-          {
-            "type": "number",
-            "name": "temperature",
-            "min": 10,
-            "max": 30,
-            "step": 1,
-            "placeholder": {
-              "en": "20",
-              "no": "20"
-            }
-          }
-        ]
       }
     ]
   },
@@ -389,5 +361,39 @@
       "luft",
       "co2"
     ]
+  },
+  "discovery": {
+    "usr-iot-adapter": {
+      "type": "mac",
+      "mac": {
+        "manufacturer": [
+          [
+            216,
+            176,
+            76
+          ],
+          [
+            156,
+            165,
+            37
+          ],
+          [
+            212,
+            173,
+            32
+          ],
+          [
+            56,
+            244,
+            6
+          ],
+          [
+            244,
+            112,
+            12
+          ]
+        ]
+      }
+    }
   }
 }

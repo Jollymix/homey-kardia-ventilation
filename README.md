@@ -12,7 +12,7 @@ Kardia used an RS-485-to-Ethernet adapter (e.g. **USR-TCP232-304**) wired to the
 
 - Control: mode (Away / Home / Boost) and temperature setpoint
 - Sensors: indoor / outdoor / supply / exhaust temperature, indoor and outdoor humidity, CO₂, PM2.5 and PM10 (indoor and outdoor)
-- Flow cards: *Set ventilation mode*, *Set temperature setpoint*, *Ventilation mode is …*, *Ventilation mode changed*
+- Flow cards: *Set ventilation mode*, *Ventilation mode is …*, *Ventilation mode changed* (setpoint uses Homey's built-in *Set temperature* card)
 - Automatic reconnect, watchdog, optional raw-frame logging
 
 Sensors your unit does not have will simply stay empty.
@@ -29,7 +29,7 @@ homey login
 homey app install
 ```
 
-Then in Homey: **+ → New device**, scroll the list of *installed* apps (don't search – search only covers the App Store) → **Kardia Ventilation → Ventilation unit**, enter the adapter's IP and port `8234`. Pairing waits for a valid frame before adding the device.
+Then in Homey: **+ → New device → Kardia Ventilation → Ventilation unit**. USR IOT adapters (MAC prefixes D8:B0:4C, 9C:A5:25, D4:AD:20, 38:F4:06, F4:70:0C) are discovered automatically and probed on port 8234; if none is found you can enter the IP address manually. The device follows the adapter if its DHCP address changes.
 
 Requires Homey Pro firmware **12.2 or newer**.
 
