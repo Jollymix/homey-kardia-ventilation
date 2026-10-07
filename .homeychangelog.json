@@ -6,5 +6,9 @@
   "0.2.0": {
     "en": "Automatic discovery of the network adapter. Simpler pairing.",
     "no": "Finner nettverksadapteren automatisk. Enklere oppsett."
+  },
+  "0.2.1": {
+    "en": "More reliable discovery of the network adapter.",
+    "no": "Mer pålitelig oppdagelse av nettverksadapteren."
   }
 }
